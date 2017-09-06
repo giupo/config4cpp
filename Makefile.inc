@@ -61,7 +61,7 @@ ifeq ($(OS),Darwin)
 #-----
 AR		= ar
 AR_FLAGS	= -r
-RANLIB		= /bin/true
+RANLIB		= echo 
 RANLIB_FLAGS	= 
 CXX		= g++
 else ifeq ($(OS),Linux)
