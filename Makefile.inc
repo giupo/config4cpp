@@ -1,14 +1,16 @@
 #----
 # TO DO: check the output of "uname -o" on HPUX and AIX
+# giupo: -o doesn't work on Darwin
 #----
-OS= $(shell uname -o)
+OS= $(shell uname)
 
-ifeq ($(OS),Gnu/Linux)
-OS=Linux
-endif
-ifeq ($(OS),GNU/Linux)
-OS=Linux
-endif
+# since "Linux" is expected, and `uname` yields "Linux", let's remove the following:
+## ifeq ($(OS),Gnu/Linux)
+##OS=Linux
+##endif
+## ifeq ($(OS),GNU/Linux)
+##OS=Linux
+## endif
 
 
 LIB_DIR=$(PROJECT_ROOT)/lib
@@ -53,7 +55,16 @@ LINK_FLAGS=
 #	- The commands used to build a library
 #	- The C++ compiler
 #-----
-ifeq ($(OS),Linux)
+ifeq ($(OS),Darwin)
+#-----
+# Darwin
+#-----
+AR		= ar
+AR_FLAGS	= -r
+RANLIB		= /bin/true
+RANLIB_FLAGS	= 
+CXX		= g++
+else ifeq ($(OS),Linux)
 #-----
 # Linux
 #-----
